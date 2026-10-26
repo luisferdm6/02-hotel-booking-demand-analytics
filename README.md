@@ -12,7 +12,7 @@ An end-to-end quantitative audit, data cleansing pipeline, and multidimensional 
 
 ## Executive Summary & Core KPIs
 
-The analysis revealed an aggregate **cancellation rate of 37.04%**, representing over **\$16.72M USD in gross revenue loss**. While City Hotel generates higher gross bookings, it carries disproportionate operational risk compared to Resort properties.
+The analysis revealed an aggregate **cancellation rate of 37.04%**, representing over **$16.72M USD in gross revenue loss**. While City Hotel generates higher gross bookings, it carries disproportionate operational risk compared to Resort properties.
 
 | Business Metric | City Hotel | Resort Hotel | Consolidated |
 | :--- | :---: | :---: | :---: |
@@ -22,6 +22,14 @@ The analysis revealed an aggregate **cancellation rate of 37.04%**, representing
 | **Realized Revenue Generated** | \$14,394,410.18 | \$11,601,914.03 | **\$25,996,324.21** |
 | **Gross Revenue Lost to Cancellations** | \$10,879,659.78 | \$5,842,177.34 | **\$16,721,837.12** |
 | **Average Stay (Completed Nights)** | 2.92 nights | 4.14 nights | 3.43 nights |
+
+---
+
+## Visualizing Revenue Drivers by Meal Package
+
+Bed & Breakfast (B&B) is the primary revenue generator for both properties ($11.33M in City Hotel and $7.34M in Resort Hotel). However, secondary demand patterns diverge significantly: urban corporate guests prioritize *Self Catering* (dining out in the city), while resort vacationers generate over $3.65M under *Half Board* (dining within the resort complex).
+
+![Realized Revenue Distribution by Meal Plan](revenue_by_meal_plan.png)
 
 ---
 
@@ -54,15 +62,16 @@ Reservations categorized under **"Non Refund" contracts exhibited an anomalous 9
    * Filtered negative daily rates (`adr = -$6.38`).
    * Removed extreme erroneous outliers (`adr = $5,400.00` in City Hotel) via threshold boundary `(adr >= 0) & (adr < 5000)`, consolidating **119,388 clean records**.
 3. **Analytical OLAP Queries (DuckDB SQL):**
-   * Implemented Common Table Expressions (CTEs), multi-dimensional grouping, and `CASE WHEN` logic to segment lead times (<7 days: Last Minute, 7–30 days: Early, >30 days: Long Term).
+   * Implemented Common Table Expressions (CTEs), multi-dimensional grouping, and `CASE WHEN` logic to segment lead times (<7 days: Last Minute, 7–30 days: Early Bird, >30 days: Long Term).
 
 ---
 
 ## Project Structure
 
 ~~~text
-├── 01_limpieza_y_agrupaciones_hotel.ipynb   # Main Jupyter Notebook (Pandas + DuckDB)
+├── 01_hotel_booking_cleaning_and_eda.ipynb  # Main Jupyter Notebook (Pandas + DuckDB)
 ├── requirements.txt                         # Exact environment dependencies
+├── revenue_by_meal_plan.png                 # Business intelligence visual asset
 └── README.md                                # Executive summary and findings
 ~~~
 
